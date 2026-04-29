@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Focus Group of Schools & Colleges | Focus to Achieve</title>
+<link rel="icon" type="image/png" href="./favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@300;400;500;600;700&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<style>
+  :root {
+    --red:       #C8102E;
+    --red-dark:  #9e0b24;
+    --red-light: #e8425c;
+    --navy:      #0A1F5C;
+    --navy-light:#122680;
+    --gold:      #F0C040;
+    --gold-dim:  #c9a030;
+    --white:     #FFFFFF;
+    --light:     #F4F6FB;
+    --gray:      #6B7280;
+    --border:    #dde3f0;
+    --success:   #10b981;
+    --error:     #ef4444;
+    --shadow-sm: 0 2px 10px rgba(10,31,92,0.08);
+    --shadow-md: 0 8px 32px rgba(10,31,92,0.13);
+    --shadow-lg: 0 20px 60px rgba(10,31,92,0.18);
+    --tx: all 0.28s cubic-bezier(0.4,0,0.2,1);
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body:    'DM Sans', sans-serif;
+    --font-caps:    'Oswald', sans-serif;
+    --page-x: 6%;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--white);
+    color: #1a1a2e;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+  ::selection { background: var(--red); color: white; }
+
+  nav {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+    background: rgba(10,31,92,0.97);
+    backdrop-filter: blur(18px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--page-x);
+    height: 72px;
+    border-bottom: 2px solid var(--red);
+    transition: var(--tx);
+    gap: 12px;
+  }
+  nav.scrolled {
+    height: 62px;
+    background: rgba(8,18,58,0.99);
+    box-shadow: 0 4px 28px rgba(0,0,0,0.4);
+  }
+
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; flex-shrink: 0; min-width: 0;
+  }
+  .nav-logo-img {
+    width: 50px; height: 50px; border-radius: 50%;
+    object-fit: cover; flex-shrink: 0;
+    border: 2px solid var(--gold);
+    box-shadow: 0 0 16px rgba(240,192,64,0.3);
+    transition: var(--tx);
+    background: var(--navy-light);
+  }
+  nav.scrolled .nav-logo-img { width: 42px; height: 42px; }
+  .nav-logo:hover .nav-logo-img { box-shadow: 0 0 24px rgba(240,192,64,0.55); transform: rotate(-4deg); }
+
+  .nav-logo-text { min-width: 0; }
+  .nav-logo-text strong {
+    display: block; font-family: var(--font-caps); font-size: 0.85rem;
+    font-weight: 600; color: white; letter-spacing: 0.5px; white-space: nowrap;
+  }
+  .nav-logo-text span {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 0.78rem; color: var(--gold); display: block; white-space: nowrap;
+  }
+
+  .nav-links { display: flex; gap: 2px; list-style: none; flex-shrink: 0; }
+  .nav-links a {
+    color: #bbc8e8; text-decoration: none;
+    font-family: var(--font-caps); font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 1px; text-transform: uppercase;
+    padding: 6px 11px; border-radius: 5px;
+    transition: var(--tx); position: relative; white-space: nowrap; 
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -1px; left: 50%; right: 50%;
+    height: 2px; background: var(--gold); border-radius: 2px;
+    transition: var(--tx);
+  }
+  .nav-links a:hover { color: var(--gold); background: rgba(240,192,64,0.08); }
+  .nav-links a:hover::after, .nav-links a.active::after { left: 8%; right: 8%; }
+  .nav-links a.active { color: var(--gold); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white; border: none; padding: 10px 22px;
+    border-radius: 5px; font-family: var(--font-caps);
+    font-weight: 600; font-size: 0.82rem; letter-spacing: 1px;
+    text-transform: uppercase; cursor: pointer;
+    transition: var(--tx); text-decoration: none;
+    box-shadow: 0 4px 14px rgba(200,16,46,0.35);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(200,16,46,0.55); }
+
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px;
+    cursor: pointer; background: none; border: none;
+    padding: 6px; flex-shrink: 0;
+  }
+  .hamburger span {
+    width: 24px; height: 2px; background: white; border-radius: 2px;
+    transition: 0.35s cubic-bezier(0.4,0,0.2,1); display: block;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-nav {
+    position: fixed; top: 72px; left: 0; width: 100%;
+    background: rgba(6,14,50,0.99); backdrop-filter: blur(24px);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 0 var(--page-x); z-index: 999;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1);
+  }
+  .mobile-nav.open { max-height: 520px; }
+  .mobile-nav a {
+    display: flex; align-items: center;
+    color: #bbc8e8; text-decoration: none;
+    font-family: var(--font-caps); font-weight: 500;
+    font-size: 1.05rem; letter-spacing: 1px; text-transform: uppercase;
+    padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    transition: var(--tx);
+  }
+  .mobile-nav a:hover { color: var(--gold); padding-left: 10px; }
+  .mobile-nav .mob-cta {
+    display: flex !important; align-items: center; justify-content: center;
+    margin: 18px 0 22px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white !important; text-align: center;
+    padding: 15px 24px; border-radius: 8px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    border: none !important; font-size: 0.9rem;
+    box-shadow: 0 6px 20px rgba(200,16,46,0.45);
+  }
+  .mobile-nav .mob-cta:hover {
+    background: linear-gradient(135deg, var(--red-light), var(--red)) !important;
+    padding-left: 24px !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(200,16,46,0.6) !important;
+  }
+
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(150deg, #050e30 0%, #091c55 50%, #0c2260 80%, #08133d 100%);
+    display: flex; align-items: center;
+    padding: 100px var(--page-x) 80px;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-grid-bg {
+    position: absolute; inset: 0; opacity: 0.025;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+    background-size: 56px 56px;
+    animation: gridDrift 22s linear infinite;
+  }
+  @keyframes gridDrift { to { background-position: 56px 56px; } }
+
+  .hero-orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
+  .hero-orb-1 { width: 55vw; max-width: 700px; height: 55vw; max-height: 700px; top: -15%; right: -10%; background: rgba(200,16,46,0.13); animation: oFloat1 9s ease-in-out infinite; }
+  .hero-orb-2 { width: 35vw; max-width: 450px; height: 35vw; max-height: 450px; bottom: -10%; left: -5%; background: rgba(240,192,64,0.06); animation: oFloat2 11s ease-in-out infinite; }
+  @keyframes oFloat1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-25px,18px);} }
+  @keyframes oFloat2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(18px,-22px);} }
+
+  .hero-inner {
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 60px; align-items: center;
+    width: 100%; max-width: 1300px; margin: 0 auto;
+  }
+
+  .hero-content { animation: fadeUp 1s cubic-bezier(0.4,0,0.2,1) both; max-width: 660px; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(36px);} to{opacity:1;transform:none;} }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: rgba(200,16,46,0.18);
+    border: 1px solid rgba(200,16,46,0.4);
+    color: #ffb0c0; font-family: var(--font-caps); font-size: 0.72rem;
+    font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
+    padding: 7px 16px; border-radius: 30px; margin-bottom: 26px;
+    animation: fadeUp 1s 0.12s both;
+  }
+  .badge-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; animation: blink 1.8s ease-in-out infinite; flex-shrink: 0; }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5vw, 5rem);
+    font-weight: 700; color: white; line-height: 1.05;
+    margin-bottom: 14px;
+    animation: fadeUp 1s 0.22s both;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 .gold { color: var(--gold); display: block; font-style: italic; }
+
+  .hero-motto {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 1.15rem; color: #6a8fcf;
+    margin-bottom: 22px; animation: fadeUp 1s 0.32s both;
+  }
+  .hero-motto span { color: #9ab0d8; }
+
+  .hero-desc {
+    font-size: 0.98rem; color: #8aadce; line-height: 1.9;
+    margin-bottom: 40px; max-width: 510px;
+    animation: fadeUp 1s 0.42s both;
+  }
+
+  .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 1s 0.52s both; }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white; padding: 14px 32px; border-radius: 5px;
+    font-family: var(--font-caps); font-weight: 600; font-size: 0.88rem;
+    letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none;
+    transition: var(--tx); display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 6px 22px rgba(200,16,46,0.4); border: none; cursor: pointer;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 34px rgba(200,16,46,0.58); }
+  .btn-primary svg { transition: transform 0.24s; }
+  .btn-primary:hover svg { transform: translateX(4px); }
+
+  .btn-outline {
+    background: transparent; color: white;
+    padding: 14px 32px; border-radius: 5px;
+    font-family: var(--font-caps); font-weight: 600; font-size: 0.88rem;
+    letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none;
+    transition: var(--tx); border: 2px solid rgba(255,255,255,0.25);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+
+  .hero-stats {
+    display: flex; flex-direction: column; gap: 16px; z-index: 2;
+    animation: fadeUp 1s 0.65s both;
+    flex-shrink: 0;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(16px);
+    border-radius: 14px; padding: 22px 30px;
+    text-align: center; transition: var(--tx);
+    min-width: 150px;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.09); transform: scale(1.04); }
+  .stat-card strong {
+    display: block; font-family: var(--font-display);
+    font-size: 2.4rem; color: var(--gold);
+    font-weight: 700; line-height: 1; font-style: italic;
+  }
+  .stat-card span {
+    font-family: var(--font-caps); font-size: 0.64rem;
+    color: #6a8ab8; text-transform: uppercase;
+    letter-spacing: 1.8px; margin-top: 4px; display: block;
+  }
+
+  .enroll-banner {
+    background: linear-gradient(135deg, var(--red) 0%, var(--red-dark) 100%);
+    padding: 16px var(--page-x);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px;
+    position: relative; overflow: hidden;
+  }
+  .enroll-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.018) 10px, rgba(255,255,255,0.018) 20px);
+  }
+  .enroll-banner-text {
+    color: white; font-family: var(--font-caps);
+    font-size: 1.05rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px; position: relative; flex-wrap: wrap;
+  }
+  .enroll-banner-text .hl { color: var(--gold); padding-left: 23px; }
+
+  .btn-navy {
+    background: linear-gradient(135deg, var(--navy-light), var(--navy));
+    color: white; padding: 9px 20px; border-radius: 5px;
+    font-family: var(--font-caps); font-weight: 600; font-size: 0.78rem;
+    letter-spacing: 1px; text-transform: uppercase; text-decoration: none;
+    transition: var(--tx); display: inline-flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 16px rgba(10,31,92,0.45); border: none; cursor: pointer;
+    position: relative; flex-shrink: 0; margin-left: 23px;
+  }
+  .btn-navy:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(10,31,92,0.65); background: linear-gradient(135deg, #1a3499, var(--navy-light)); }
+  .btn-navy svg { transition: transform 0.24s; }
+  .btn-navy:hover svg { transform: translateX(4px); }
+
+  section { padding: 100px var(--page-x); }
+
+  .section-label {
+    font-family: var(--font-caps); font-size: 0.7rem; font-weight: 500;
+    letter-spacing: 3.5px; text-transform: uppercase; color: var(--red);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before { content: ''; width: 28px; height: 2px; background: var(--red); display: inline-block; flex-shrink: 0; }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    font-weight: 700; color: var(--navy); line-height: 1.15;
+    margin-bottom: 18px;
+  }
+  .section-sub {
+    font-size: 0.98rem; color: var(--gray); line-height: 1.9;
+    max-width: 560px; margin-bottom: 52px;
+  }
+
+  .about { background: var(--light); position: relative; overflow: hidden; }
+  .about-watermark {
+    position: absolute; right: -30px; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-caps); font-size: 13vw; font-weight: 700;
+    color: rgba(10,31,92,0.035); letter-spacing: -4px;
+    pointer-events: none; user-select: none; white-space: nowrap;
+  }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; position: relative; z-index: 1; }
+  .about-features { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; }
+
+  .feature-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    background: white; padding: 18px 20px;
+    border-radius: 12px; border-left: 4px solid var(--red);
+    box-shadow: var(--shadow-sm); transition: var(--tx); cursor: default;
+  }
+  .feature-item:hover { transform: translateX(6px); box-shadow: var(--shadow-md); border-left-color: var(--navy); }
+  .feature-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    border-radius: 10px; display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; box-shadow: 0 4px 12px rgba(200,16,46,0.28); transition: var(--tx);
+  }
+  .feature-item:hover .feature-icon { transform: scale(1.1); }
+  .feature-text strong { display: block; color: var(--navy); font-weight: 600; font-size: 0.95rem; margin-bottom: 3px; }
+  .feature-text span { color: var(--gray); font-size: 0.85rem; line-height: 1.6; }
+
+  .about-card {
+    background: linear-gradient(145deg, var(--navy), #0c2870);
+    border-radius: 22px; padding: 48px;
+    color: white; position: relative; overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+  .about-card::before {
+    content: ''; position: absolute; top: -70px; right: -70px;
+    width: 250px; height: 250px;
+    background: radial-gradient(circle, rgba(200,16,46,0.22), transparent 70%);
+  }
+  .about-card::after {
+    content: ''; position: absolute; bottom: -50px; left: -50px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(240,192,64,0.1), transparent 70%);
+  }
+  .about-card-label {
+    color: var(--gold); font-family: var(--font-caps);
+    font-size: 0.68rem; letter-spacing: 3px; text-transform: uppercase;
+    font-weight: 500; margin-bottom: 16px; position: relative; z-index: 1;
+  }
+  .about-card h3 {
+    font-family: var(--font-display); font-size: 1.85rem;
+    font-weight: 700; margin-bottom: 18px; line-height: 1.25;
+    position: relative; z-index: 1; font-style: italic;
+  }
+  .about-card p {
+    color: #90b0d5; line-height: 1.9; font-size: 0.95rem;
+    margin-bottom: 30px; position: relative; z-index: 1;
+  }
+  .about-card-facts { display: flex; gap: 0; position: relative; z-index: 1; }
+  .fact { text-align: center; flex: 1; padding: 16px 8px; }
+  .fact + .fact { border-left: 1px solid rgba(255,255,255,0.1); }
+  .fact strong {
+    display: block; font-family: var(--font-display); font-style: italic;
+    font-size: 2.4rem; color: var(--gold); font-weight: 700; line-height: 1;
+  }
+  .fact span {
+    font-family: var(--font-caps); font-size: 0.66rem;
+    color: #6888b0; text-transform: uppercase; letter-spacing: 1.2px;
+    margin-top: 5px; display: block;
+  }
+  .estd-badge {
+    position: absolute; top: 50px; right: 50px;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    color: white; font-family: var(--font-caps);
+    font-size: 0.74rem; font-weight: 600; letter-spacing: 2px;
+    padding: 8px 18px; border-radius: 30px; text-transform: uppercase;
+    box-shadow: 0 4px 16px rgba(200,16,46,0.45); z-index: 10;
+  }
+
+  .programs { background: white; }
+  .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 28px; }
+  .program-card {
+    border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--border); transition: var(--tx);
+    position: relative; box-shadow: var(--shadow-sm);
+  }
+  .program-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: transparent; }
+  .program-card-top {
+    background: linear-gradient(145deg, var(--navy), #0c2870);
+    padding: 34px 30px; position: relative; overflow: hidden;
+  }
+  .program-card-top::before {
+    content: ''; position: absolute; bottom: -40px; right: -40px;
+    width: 140px; height: 140px; background: rgba(200,16,46,0.18); border-radius: 50%;
+  }
+  .program-num {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 5.5rem; font-weight: 700; color: rgba(255,255,255,0.06);
+    line-height: 1; margin-bottom: -16px; user-select: none;
+  }
+  .program-name {
+    color: white; font-family: var(--font-caps); font-size: 1.7rem;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; position: relative; z-index: 1;
+  }
+  .program-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--red); color: white; font-family: var(--font-caps);
+    font-size: 0.65rem; padding: 5px 12px; border-radius: 20px; font-weight: 500;
+    margin-top: 10px; text-transform: uppercase; letter-spacing: 1.2px; position: relative; z-index: 1;
+  }
+  .program-tag::before { content: ''; width: 5px; height: 5px; background: var(--gold); border-radius: 50%; animation: blink 1.6s infinite; }
+  .program-card-body { padding: 26px 30px; background: white; }
+  .program-card-body p { color: var(--gray); font-size: 0.9rem; line-height: 1.8; }
+
+  .fees { background: var(--navy); position: relative; overflow: hidden; }
+  .fees::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 0% 0%, rgba(200,16,46,0.2), transparent 50%),
+                radial-gradient(ellipse at 100% 100%, rgba(240,192,64,0.08), transparent 50%);
+  }
+  .fees .section-title { color: white; font-style: italic; }
+  .fees .section-label { color: var(--gold); }
+  .fees .section-label::before { background: var(--gold); }
+  .fees-grid {
+    position: relative; z-index: 1;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px; margin-bottom: 36px;
+  }
+  .fee-card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 18px; padding: 40px 30px;
+    text-align: center; transition: var(--tx);
+    position: relative; overflow: hidden;
+  }
+  .fee-card:hover { transform: translateY(-6px); background: rgba(255,255,255,0.09); }
+  .fee-card.featured {
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    border-color: var(--red); box-shadow: 0 12px 40px rgba(200,16,46,0.42);
+  }
+  .fee-card.featured .fee-amount { color: white; }
+  .fee-card.featured .fee-label,
+  .fee-card.featured .fee-sub { color: rgba(255,255,255,0.7); }
+  .fee-icon { font-size: 1.8rem; margin-bottom: 20px; transition: var(--tx); }
+  .fee-card:hover .fee-icon { transform: scale(1.15) rotate(-4deg); }
+  .fee-label {
+    color: #6888b0; font-family: var(--font-caps);
+    font-size: 0.68rem; text-transform: uppercase; letter-spacing: 2.5px;
+    font-weight: 500; margin-bottom: 10px;
+  }
+  .fee-amount {
+    color: var(--gold); font-family: var(--font-display);
+    font-style: italic; font-size: 3.8rem; font-weight: 700; line-height: 1;
+  }
+  .fee-amount sup { font-size: 1.6rem; vertical-align: top; margin-top: 7px; display: inline-block; font-style: normal; }
+  .fee-sub { color: #6888b0; font-size: 0.85rem; margin-top: 8px; }
+  .fees-note {
+    position: relative; z-index: 1;
+    background: rgba(240,192,64,0.08); border: 1px solid rgba(240,192,64,0.22);
+    border-radius: 12px; padding: 18px 26px;
+    color: var(--gold); font-size: 0.9rem;
+    display: flex; align-items: center; gap: 12px; line-height: 1.7;
+  }
+  .fees-note .ni { font-size: 1.4rem; flex-shrink: 0; }
+
+  .why { background: var(--light); }
+  .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+  .why-card {
+    background: white; border-radius: 16px; padding: 36px 26px;
+    text-align: center; box-shadow: var(--shadow-sm);
+    transition: var(--tx); border-top: 4px solid transparent;
+    position: relative; overflow: hidden;
+  }
+  .why-card::before {
+    content: ''; position: absolute; bottom: -50px; right: -50px;
+    width: 110px; height: 110px; border-radius: 50%;
+    background: rgba(200,16,46,0.04); transition: var(--tx);
+  }
+  .why-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-top-color: var(--red); }
+  .why-card:hover::before { width: 220px; height: 220px; }
+  .why-icon {
+    width: 66px; height: 66px; border-radius: 18px;
+    background: linear-gradient(135deg, rgba(200,16,46,0.09), rgba(10,31,92,0.05));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; margin: 0 auto 18px; transition: var(--tx);
+  }
+  .why-card:hover .why-icon { background: linear-gradient(135deg, var(--red), var(--red-dark)); transform: scale(1.1) rotate(-5deg); }
+  .why-card h3 {
+    font-family: var(--font-caps); font-size: 1.05rem; font-weight: 600;
+    color: var(--navy); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
+  }
+  .why-card p { color: var(--gray); font-size: 0.88rem; line-height: 1.8; }
+
+  .contact-section { background: white; }
+  .contact-wrapper {
+    display: grid; grid-template-columns: 1fr 1.25fr;
+    gap: 0; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg);
+  }
+  .contact-info {
+    background: linear-gradient(160deg, var(--red) 0%, var(--red-dark) 100%);
+    padding: 64px 50px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .contact-info::before {
+    content: ''; position: absolute; top: -80px; right: -80px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(255,255,255,0.1), transparent 70%);
+  }
+  .contact-info::after {
+    content: ''; position: absolute; bottom: -50px; left: -50px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(240,192,64,0.15), transparent 70%);
+  }
+  .contact-info .section-label { color: rgba(255,255,255,0.6); }
+  .contact-info .section-label::before { background: rgba(255,255,255,0.35); }
+  .contact-info .section-title { color: white; font-size: 2.1rem; font-style: italic; margin-bottom: 10px; }
+  .contact-info .section-sub { color: rgba(255,255,255,0.72); max-width: 100%; margin-bottom: 36px; }
+  .contact-details { display: flex; flex-direction: column; gap: 22px; position: relative; z-index: 1; }
+  .contact-item { display: flex; align-items: flex-start; gap: 16px; }
+  .contact-item-icon {
+    width: 44px; height: 44px; background: rgba(255,255,255,0.15); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0; transition: var(--tx);
+  }
+  .contact-item:hover .contact-item-icon { background: rgba(255,255,255,0.26); transform: scale(1.08); }
+  .contact-item strong { display: block; font-weight: 600; color: white; margin-bottom: 3px; font-size: 0.93rem; }
+  .contact-item span { font-size: 0.88rem; color: rgba(255,255,255,0.72); line-height: 1.65; }
+  .contact-item a { color: rgba(255,255,255,0.9); text-decoration: none; }
+  .contact-item a:hover { color: var(--gold); }
+
+  .contact-form-wrap {
+    padding: 64px 54px; background: var(--light);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .contact-form-wrap h3 {
+    font-family: var(--font-display); font-style: italic;
+    font-size: 1.8rem; color: var(--navy); margin-bottom: 30px;
+  }
+
+  .form-group { margin-bottom: 20px; position: relative; }
+  .form-group label {
+    display: block; font-family: var(--font-caps);
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--navy); margin-bottom: 8px;
+  }
+  .form-group label .req { color: var(--red); margin-left: 2px; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%; padding: 13px 16px;
+    border: 2px solid var(--border); border-radius: 9px;
+    font-family: var(--font-body); font-size: 0.95rem;
+    color: var(--navy); background: white;
+    transition: var(--tx); outline: none;
+    appearance: none; -webkit-appearance: none;
+  }
+  .form-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230A1F5C' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 16px center;
+    padding-right: 44px; cursor: pointer; background-color: white;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--red); box-shadow: 0 0 0 4px rgba(200,16,46,0.1); }
+  .form-group input.valid { border-color: var(--success); }
+  .form-group input.invalid, .form-group select.invalid, .form-group textarea.invalid { border-color: var(--error); box-shadow: 0 0 0 4px rgba(239,68,68,0.1); }
+  .form-group textarea { resize: vertical; min-height: 108px; }
+  .field-error { font-size: 0.77rem; color: var(--error); margin-top: 5px; display: none; align-items: center; gap: 5px; font-weight: 600; }
+  .field-error.show { display: flex; }
+  .field-error::before { content: '⚠'; font-size: 0.72rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .char-counter { font-size: 0.74rem; color: var(--gray); text-align: right; margin-top: 4px; }
+
+  .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--navy), var(--navy-light));
+    color: white; border: none; padding: 15px;
+    border-radius: 9px; font-family: var(--font-caps);
+    font-weight: 600; font-size: 0.9rem; letter-spacing: 1.5px;
+    text-transform: uppercase; cursor: pointer;
+    transition: var(--tx); display: flex;
+    align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 0 6px 24px rgba(10,31,92,0.25);
+    position: relative; overflow: hidden;
+  }
+  .submit-btn::before {
+    content: ''; position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transition: left 0.5s;
+  }
+  .submit-btn:hover { background: linear-gradient(135deg, var(--red), var(--red-dark)); transform: translateY(-2px); box-shadow: 0 12px 34px rgba(200,16,46,0.42); }
+  .submit-btn:hover::before { left: 100%; }
+  .submit-btn:disabled { opacity: 0.65; cursor: not-allowed; transform: none; }
+  .submit-btn .btn-spinner { width: 18px; height: 18px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; display: none; }
+  .submit-btn.loading .btn-spinner { display: block; }
+  .submit-btn.loading .btn-text { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .form-success { display: none; text-align: center; padding: 40px 20px; animation: fadeIn 0.4s ease; }
+  .form-success.show { display: block; }
+  .form-success .si { font-size: 3.5rem; margin-bottom: 16px; animation: pop 0.5s cubic-bezier(0.4,0,0.2,1) both; }
+  @keyframes pop { 0%{transform:scale(0);} 80%{transform:scale(1.2);} 100%{transform:scale(1);} }
+  .form-success h4 { font-family: var(--font-display); font-style: italic; font-size: 1.6rem; color: var(--navy); margin-bottom: 10px; }
+  .form-success p { color: var(--gray); font-size: 0.95rem; line-height: 1.75; margin-bottom: 20px; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:none;} }
+
+  footer { background: #030b22; padding: 60px var(--page-x) 28px; color: #4a5a88; }
+  .footer-top {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 48px; flex-wrap: wrap;
+    padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 28px;
+  }
+  .footer-brand { max-width: 310px; }
+  .footer-logo { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .footer-logo img {
+    width: 46px; height: 46px; border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--gold); box-shadow: 0 0 12px rgba(240,192,64,0.2);
+  }
+  .footer-brand-name {
+    font-family: var(--font-caps); font-size: 0.92rem;
+    font-weight: 600; color: white; text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .footer-brand-motto {
+    color: var(--gold); font-style: italic; font-family: var(--font-display);
+    font-size: 0.92rem; margin-bottom: 14px;
+  }
+  .footer-brand p { font-size: 0.86rem; line-height: 1.8; }
+  .footer-links h4 {
+    color: white; font-family: var(--font-caps); font-size: 0.68rem;
+    letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 18px; font-weight: 500;
+  }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a {
+    color: #4a5a88; text-decoration: none; font-size: 0.88rem;
+    transition: var(--tx); display: flex; align-items: center; gap: 6px;
+  }
+  .footer-links a:hover { color: white; padding-left: 4px; }
+  .footer-bottom {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; font-size: 0.78rem;
+  }
+  .footer-bottom span { color: #ffffff; }
+  .footer-heart { color: var(--red); }
+
+  .back-to-top {
+    position: fixed; bottom: 26px; right: 26px; z-index: 999;
+    width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.4rem;
+    background: linear-gradient(135deg, var(--red), var(--red-dark));
+    box-shadow: 0 0 0 rgba(200,16,46,0.6), 0 8px 30px rgba(200,16,46,0.55);
+    backdrop-filter: blur(6px); transition: all 0.35s ease;
+    opacity: 0; transform: translateY(20px) scale(0.8); pointer-events: none;
+  }
+  .back-to-top.show {
+    opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
+    animation: pulseGlow 2.5s infinite;
+  }
+  .back-to-top:hover { transform: translateY(-6px) scale(1.12); box-shadow: 0 0 18px rgba(255,40,80,0.9), 0 12px 40px rgba(200,16,46,0.7); }
+  .back-to-top span { display: inline-block; transition: transform 0.3s ease; }
+  .back-to-top:hover span { transform: translateY(-3px); }
+  @keyframes pulseGlow {
+    0%   { box-shadow: 0 0 0 0 rgba(200,16,46,0.5), 0 8px 30px rgba(200,16,46,0.55); }
+    70%  { box-shadow: 0 0 0 12px rgba(200,16,46,0), 0 8px 30px rgba(200,16,46,0.55); }
+    100% { box-shadow: 0 0 0 0 rgba(200,16,46,0); }
+  }
+
+  .toast {
+    position: fixed; bottom: 26px; left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: white; color: var(--navy);
+    padding: 13px 22px; border-radius: 12px;
+    font-weight: 600; font-size: 0.88rem;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    display: flex; align-items: center; gap: 10px; z-index: 9999;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+    border-left: 4px solid var(--success); white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.error { border-left-color: var(--error); }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.75s cubic-bezier(0.4,0,0.2,1), transform 0.75s cubic-bezier(0.4,0,0.2,1); }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 1200px) {
+    nav { padding: 0 var(--page-x); }
+    .hero-inner { grid-template-columns: 1fr; gap: 0; }
+    .hero-stats { display: none; }
+    .hero { min-height: auto; padding: 120px var(--page-x) 80px; align-items: flex-start; }
+    .hero-content { max-width: 100%; }
+    .hero-desc { max-width: 600px; }
+  }
+  @media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-watermark { display: none; }
+    .contact-wrapper { grid-template-columns: 1fr; }
+    .contact-info { padding: 50px 40px; }
+    .contact-form-wrap { padding: 50px 40px; }
+    section { padding: 80px var(--page-x); }
+  }
+  @media (max-width: 768px) {
+    :root { --page-x: 5%; }
+    nav { height: 64px; }
+    nav.scrolled { height: 58px; }
+    .mobile-nav { top: 64px; }
+    .nav-logo-img { width: 44px; height: 44px; }
+    .nav-logo-text span { display: none; }
+    section { padding: 64px var(--page-x); }
+    .hero { padding: 100px var(--page-x) 64px; }
+    .contact-info { padding: 40px 28px; }
+    .contact-form-wrap { padding: 40px 28px; }
+    .about-card { padding: 36px 28px; }
+    .estd-badge { top: 25px; right: 25px; }
+    footer { padding: 50px var(--page-x) 25px; text-align: center; }
+    .footer-top { flex-direction: column; align-items: center; gap: 35px; }
+    .footer-brand { max-width: 100%; }
+    .footer-logo { justify-content: center; }
+    .footer-links { width: 100%; }
+    .footer-links h4 { text-align: center; }
+    .footer-links ul { align-items: center; }
+    .footer-links a { justify-content: center; }
+    .footer-bottom { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+    .back-to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 1.2rem; }
+  }
+  @media (max-width: 600px) {
+    section { padding: 56px var(--page-x); }
+    .hero { padding: 92px var(--page-x) 56px; }
+    .hero h1 { font-size: clamp(2rem, 9vw, 2.8rem); }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-top { gap: 28px; }
+    .contact-form-wrap { padding: 30px 20px; }
+    .contact-info { padding: 36px 20px; }
+    .enroll-banner-text { font-size: 0.9rem; }
+    .about-card { padding: 28px 22px; }
+    .programs-grid { grid-template-columns: 1fr; }
+    .fees-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 480px) {
+    .hero-buttons { flex-direction: column; }
+    .btn-primary, .btn-outline { justify-content: center; }
+    .hero h1 { font-size: 2rem; }
+    .why-grid { grid-template-columns: 1fr; }
+    .about-card-facts { flex-direction: column; gap: 0; }
+    .fact + .fact { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); }
+  }
+</style>
+</head>
+<body>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><span>↑</span></button>
+<div class="toast" id="toast"></div>
+
+<nav id="mainNav">
+  <a href="#home" class="nav-logo">
+    <img src="./logo.png" alt="Focus Group Logo" class="nav-logo-img" width="50" height="50">
+    <div class="nav-logo-text">
+      <strong>Focus Group</strong>
+      <span>"Focus to Achieve"</span>
+    </div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#fees">Fees</a></li>
+    <li><a href="#why-us">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Enroll Now</a>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+  <a href="#about"    onclick="closeMenu()">About</a>
+  <a href="#programs" onclick="closeMenu()">Programs</a>
+  <a href="#fees"     onclick="closeMenu()">Fees</a>
+  <a href="#why-us"   onclick="closeMenu()">Why Us</a>
+  <a href="#contact"  onclick="closeMenu()">Contact</a>
+  <a href="#contact" class="mob-cta" onclick="closeMenu()">Enroll Now &rarr;</a>
+</div>
+
+<section class="hero" id="home">
+  <div class="hero-grid-bg" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        2026 Enrollment Now Open
+      </div>
+      <h1>Focus Group of<span class="gold">Schools &amp; Colleges</span></h1>
+      <p class="hero-motto"><span>"Focus to Achieve"</span></p>
+      <p class="hero-desc">A Christ-centred learning community in Rusape, Zimbabwe — nurturing academic excellence, talent, and character in every student from Form 1 to Form 3.</p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn-primary">
+          Enroll Today
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="#about" class="btn-outline">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-stats" aria-label="School highlights">
+      <div class="stat-card"><strong>Est.</strong><span>2025</span></div>
+      <div class="stat-card"><strong>F1–3</strong><span>Forms Available</span></div>
+      <div class="stat-card"><strong>$40</strong><span>Per Month</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="enroll-banner">
+  <div class="enroll-banner-text">
+    <div class="badge-dot" style="width:9px;height:9px;background:var(--gold);flex-shrink:0;"></div>
+    <span>2026 Enrollment in Progress</span> &mdash; <span class="hl">Forms 1 to 3 Now Open</span>
+  </div>
+  <a href="#contact" class="btn-navy">
+    Register Now
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<section class="about" id="about">
+  <div class="about-watermark" aria-hidden="true">FOCUS</div>
+  <div class="about-grid">
+    <div class="reveal">
+      <p class="section-label">Who We Are</p>
+      <h2 class="section-title">Building Futures<br>in Rusape</h2>
+      <p class="section-sub">Located at Tsikada Homestead, Nyahunguwo Village, Tandi, Rusape — Focus Group of Schools &amp; Colleges is a dynamic private institution committed to raising academically strong, morally upright, and skilled young Zimbabweans.</p>
+      <div class="about-features">
+        <div class="feature-item">
+          <div class="feature-icon">📖</div>
+          <div class="feature-text">
+            <strong>Innovative &amp; Engaging Education</strong>
+            <span>Modern teaching methods that inspire curiosity and critical thinking in every subject.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">✝️</div>
+          <div class="feature-text">
+            <strong>Christian Environment</strong>
+            <span>Rooted in faith-based values, building strong character alongside academic excellence.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">🎯</div>
+          <div class="feature-text">
+            <strong>Guidance &amp; Counseling</strong>
+            <span>Dedicated support for every student's personal and academic journey at all stages.</span>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚽</div>
+          <div class="feature-text">
+            <strong>Extra-Curricular Activities</strong>
+            <span>Sports, clubs, and talent development opportunities well beyond the classroom.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal" style="transition-delay:0.2s">
+      <div class="about-card">
+        <div class="estd-badge">Est. 2025</div>
+        <p class="about-card-label">Our Mission</p>
+        <h3>Excellence in Education,<br>Grounded in Faith</h3>
+        <p>We are dedicated to providing quality, accessible secondary education that empowers students to realize their full potential — academically, creatively, and spiritually — for a better Zimbabwe.</p>
+        <div class="about-card-facts">
+          <div class="fact"><strong>100%</strong><span>Committed Staff</span></div>
+          <div class="fact"><strong>F1–3</strong><span>Forms Offered</span></div>
+          <div class="fact"><strong>Rusape</strong><span>Location</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div style="text-align:center;margin-bottom:52px;" class="reveal">
+    <p class="section-label" style="justify-content:center;">Academic Programs</p>
+    <h2 class="section-title" style="font-style:italic;">Secondary School Forms</h2>
+    <p class="section-sub" style="margin:0 auto;">We currently offer secondary education from Form 1 through Form 3, with enrollment open for the 2026 academic year.</p>
+  </div>
+  <div class="programs-grid">
+    <div class="program-card reveal">
+      <div class="program-card-top">
+        <div class="program-num">01</div>
+        <div class="program-name">Form One</div>
+        <span class="program-tag">Open for 2026</span>
+      </div>
+      <div class="program-card-body">
+        <p>The entry point into secondary education at Focus Group. Students build foundational skills across core subjects in a nurturing, structured environment designed to ease the transition from primary school.</p>
+      </div>
+    </div>
+    <div class="program-card reveal" style="transition-delay:0.15s">
+      <div class="program-card-top">
+        <div class="program-num">02</div>
+        <div class="program-name">Form Two</div>
+        <span class="program-tag">Open for 2026</span>
+      </div>
+      <div class="program-card-body">
+        <p>Building on Form One fundamentals, students deepen their subject knowledge. Talent identification, counseling, and extra-curricular activities play an increasing role in student development.</p>
+      </div>
+    </div>
+    <div class="program-card reveal" style="transition-delay:0.3s">
+      <div class="program-card-top">
+        <div class="program-num">03</div>
+        <div class="program-name">Form Three</div>
+        <span class="program-tag">Open for 2026</span>
+      </div>
+      <div class="program-card-body">
+        <p>Form 3 prepares students for critical O-Level examinations ahead. With highly qualified tutors and our Technical Skills Hub, students are set up for examination success and beyond.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="fees" id="fees">
+  <div style="margin-bottom:52px;" class="reveal">
+    <p class="section-label">School Fees</p>
+    <h2 class="section-title">Transparent &amp; Affordable</h2>
+    <p class="section-sub" style="color:#7090b8;">Quality education at accessible rates. We believe every child deserves the opportunity to achieve their fullest potential.</p>
+  </div>
+  <div class="fees-grid reveal">
+    <div class="fee-card">
+      <div class="fee-icon">📋</div>
+      <div class="fee-label">Registration Fee</div>
+      <div class="fee-amount"><sup>$</sup>20</div>
+      <div class="fee-sub">One-time upon enrollment</div>
+    </div>
+    <div class="fee-card featured">
+      <div class="fee-icon">📅</div>
+      <div class="fee-label">Monthly Tuition</div>
+      <div class="fee-amount"><sup>$</sup>40</div>
+      <div class="fee-sub">Per month, per student</div>
+    </div>
+    <div class="fee-card">
+      <div class="fee-icon">🗓️</div>
+      <div class="fee-label">Per Term</div>
+      <div class="fee-amount"><sup>$</sup>120</div>
+      <div class="fee-sub">Full term payment option</div>
+    </div>
+  </div>
+  <div class="fees-note reveal" style="transition-delay:0.2s">
+    <span class="ni">💡</span>
+    <span>Fees can be paid <strong>monthly</strong> or <strong>per term</strong>. Please contact us to discuss payment arrangements. We are happy to assist every family.</span>
+  </div>
+</section>
+
+<section class="why" id="why-us">
+  <div style="text-align:center;margin-bottom:52px;" class="reveal">
+    <p class="section-label" style="justify-content:center;">Why Choose Us</p>
+    <h2 class="section-title" style="font-style:italic;">What Sets Us Apart</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal"><div class="why-icon">🎓</div><h3>Highly Qualified Tutors</h3><p>Our compassionate and skilled educators bring passion and expertise to every lesson, ensuring each student receives quality instruction.</p></div>
+    <div class="why-card reveal" style="transition-delay:0.1s"><div class="why-icon">✝️</div><h3>Christian Environment</h3><p>We nurture not just the mind but the spirit. Our faith-based environment promotes integrity, respect, and strong moral values.</p></div>
+    <div class="why-card reveal" style="transition-delay:0.2s"><div class="why-icon">🌟</div><h3>Talent Identification</h3><p>Every student has unique gifts. We actively identify and develop individual talents through structured programs and mentorship.</p></div>
+    <div class="why-card reveal" style="transition-delay:0.3s"><div class="why-icon">🔧</div><h3>Technical Skills Hub</h3><p>Preparing students for the modern world with practical technical skills alongside their academic curriculum.</p></div>
+    <div class="why-card reveal" style="transition-delay:0.4s"><div class="why-icon">🧭</div><h3>Guidance &amp; Counseling</h3><p>Dedicated counseling services support students through academic challenges and personal growth throughout their school journey.</p></div>
+    <div class="why-card reveal" style="transition-delay:0.5s"><div class="why-icon">🏆</div><h3>Extra-Curricular Activities</h3><p>A well-rounded education includes sport, arts, and clubs — building teamwork, leadership, and a love for life beyond books.</p></div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <p class="section-label">Get In Touch</p>
+      <h2 class="section-title">Visit or Call Us Today</h2>
+      <p class="section-sub">We'd love to hear from you. Reach out to learn more about enrollment or to arrange a school visit — our team is ready to help.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <strong>Phone Numbers</strong>
+            <span>
+              <a href="tel:+263775023043">+263 775 023 043</a><br>
+              <a href="tel:+263715384611">+263 715 384 611</a>
+            </span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <strong>Physical Address</strong>
+            <span>Tsikada Homestead, Nyahunguwo Village<br>Tandi, Rusape, Zimbabwe</span>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <strong>Office Hours</strong>
+            <span>Monday – Friday: 7:30am – 4:30pm<br>Saturday: 8:00am – 12:00pm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form-wrap reveal" style="transition-delay:0.2s">
+      <div id="enrollForm">
+        <h3>Enrollment Inquiry</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="guardianName">Parent / Guardian Name <span class="req">*</span></label>
+            <input type="text" id="guardianName" placeholder="Full name" autocomplete="name"
+                   oninput="validateField(this)" onblur="validateField(this, true)">
+            <span class="field-error" id="guardianNameError">Please enter the guardian's full name</span>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="phone" placeholder="+263 7XX XXX XXX" autocomplete="tel"
+                   oninput="validateField(this)" onblur="validateField(this, true)">
+            <span class="field-error" id="phoneError">Please enter a valid phone number</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="studentName">Student's Full Name <span class="req">*</span></label>
+          <input type="text" id="studentName" placeholder="Student's full name"
+                 oninput="validateField(this)" onblur="validateField(this, true)">
+          <span class="field-error" id="studentNameError">Please enter the student's full name</span>
+        </div>
+        <div class="form-group">
+          <label for="formSelect">Form Applying For <span class="req">*</span></label>
+          <select id="formSelect" onchange="validateField(this, true)">
+            <option value="">Select a form...</option>
+            <option value="Form 1">Form 1</option>
+            <option value="Form 2">Form 2</option>
+            <option value="Form 3">Form 3</option>
+          </select>
+          <span class="field-error" id="formSelectError">Please select a form</span>
+        </div>
+        <div class="form-group">
+          <label for="message">Message or Questions</label>
+          <textarea id="message" placeholder="Any additional information or questions (optional)..."
+                    maxlength="500" oninput="updateCounter(this)"></textarea>
+          <div class="char-counter"><span id="msgCount">0</span> / 500</div>
+        </div>
+        <button type="button" class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+          <div class="btn-spinner"></div>
+          <span class="btn-text">Submit Enrollment Inquiry →</span>
+        </button>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <div class="si">🎉</div>
+        <h4>Inquiry Submitted!</h4>
+        <p>Thank you! The Focus Group team will contact you shortly to discuss your enrollment.<br><br>
+        For immediate assistance call:<br>
+        <strong>+263 775 023 043</strong> or <strong>+263 715 384 611</strong></p>
+        <button class="submit-btn" onclick="resetForm()" style="max-width:240px;margin:0 auto;">
+          <span class="btn-text">Submit Another Inquiry</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <img src="./logo.png" alt="Focus Group Logo" width="46" height="46">
+        <div>
+          <div class="footer-brand-name">Focus Group of Schools &amp; Colleges</div>
+        </div>
+      </div>
+      <div class="footer-brand-motto">"Focus to Achieve"</div>
+      <p>A Christian secondary school in Rusape, Zimbabwe, dedicated to academic excellence and holistic student development since 2025.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#programs">Programs</a></li>
+        <li><a href="#fees">School Fees</a></li>
+        <li><a href="#why-us">Why Choose Us</a></li>
+        <li><a href="#contact">Contact &amp; Enroll</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+263775023043">+263 775 023 043</a></li>
+        <li><a href="tel:+263715384611">+263 715 384 611</a></li>
+        <li><a href="#contact">Tsikada Homestead, Rusape</a></li>
+        <li><a href="#contact">Mon–Fri: 7:30am – 4:30pm</a></li>
+        <li><a href="#contact">Sat: 8:00am – 12:00pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Focus Group of Schools &amp; Colleges. All rights reserved.</span>
+    <span>Made with <span class="footer-heart">♥</span> for Zimbabwe's future</span>
+  </div>
+</footer>
+
+<script>
+  /* ── EMAILJS INIT ── */
+  emailjs.init("DjSilJ7eandRiPWv3");
+
+  const EMAILJS_SERVICE_ID  = "service_qw8yy2g";
+  const EMAILJS_TEMPLATE_ID = "template_txwe435";
+
+  /* ── SCROLL & NAV ── */
+  const nav     = document.getElementById('mainNav');
+  const backBtn = document.getElementById('backToTop');
+  const sections   = document.querySelectorAll('section[id]');
+  const navLinkEls = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    nav.classList.toggle('scrolled', y > 60);
+    backBtn.classList.toggle('show', y > 400);
+    let current = '';
+    sections.forEach(s => { if (y >= s.offsetTop - 130) current = s.id; });
+    navLinkEls.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }, { passive: true });
+
+  /* ── MOBILE NAV ── */
+  const mobileNav = document.getElementById('mobileNav');
+  const hamburger = document.getElementById('hamburger');
+
+  function toggleMenu() {
+    const open = mobileNav.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  function closeMenu() {
+    mobileNav.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !mobileNav.contains(e.target)) closeMenu();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
+
+  /* ── SCROLL REVEAL ── */
+  const ro = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  /* ── TOAST ── */
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.className = 'toast' + (type === 'error' ? ' error' : '');
+    t.innerHTML = `<span>${type === 'success' ? '✅' : '⚠️'}</span><span>${msg}</span>`;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  /* ── CHAR COUNTER ── */
+  function updateCounter(el) {
+    document.getElementById('msgCount').textContent = el.value.length;
+  }
+
+  /* ── VALIDATION ── */
+  const validators = {
+    guardianName: v => {
+      if (!v.trim()) return 'Please enter the guardian\'s full name.';
+      if (v.trim().length < 3) return 'Name must be at least 3 characters.';
+      if (!/^[a-zA-Z\s\-'.]+$/.test(v.trim())) return 'Letters, spaces, hyphens, apostrophes only.';
+      return null;
+    },
+    phone: v => {
+      const c = v.replace(/[\s\-().]/g, '');
+      if (!c) return 'Please enter a phone number.';
+      if (!/^\+?[0-9]{7,15}$/.test(c)) return 'Enter a valid phone number (7–15 digits).';
+      return null;
+    },
+    studentName: v => {
+      if (!v.trim()) return 'Please enter the student\'s full name.';
+      if (v.trim().length < 3) return 'Name must be at least 3 characters.';
+      if (!/^[a-zA-Z\s\-'.]+$/.test(v.trim())) return 'Letters, spaces, hyphens, apostrophes only.';
+      return null;
+    },
+    formSelect: v => (!v ? 'Please select a form.' : null)
+  };
+
+  function validateField(el, showError = false) {
+    const fn = validators[el.id];
+    if (!fn) return true;
+    const error = fn(el.value);
+    const errEl = document.getElementById(el.id + 'Error');
+    if (error) {
+      el.classList.add('invalid'); el.classList.remove('valid');
+      if (errEl) { errEl.textContent = error; if (showError) errEl.classList.add('show'); }
+      return false;
+    } else {
+      el.classList.remove('invalid'); el.classList.add('valid');
+      if (errEl) errEl.classList.remove('show');
+      return true;
+    }
+  }
+
+  function validateAll() {
+    let allValid = true;
+    ['guardianName','phone','studentName','formSelect'].forEach(id => {
+      const el = document.getElementById(id);
+      const valid = validateField(el, true);
+      if (!valid && allValid) { el.scrollIntoView({ behavior:'smooth', block:'center' }); el.focus(); allValid = false; }
+      else if (!valid) allValid = false;
+    });
+    return allValid;
+  }
+
+  /* ── FORM SUBMIT via EmailJS ── */
+  async function handleSubmit() {
+    if (!validateAll()) {
+      showToast('Please fix the errors above before submitting.', 'error');
+      return;
+    }
+    const btn = document.getElementById('submitBtn');
+    btn.classList.add('loading'); btn.disabled = true;
+
+    const templateParams = {
+      parent_name:   document.getElementById('guardianName').value.trim(),
+      phone:         document.getElementById('phone').value.trim(),
+      student_name:  document.getElementById('studentName').value.trim(),
+      form_applying: document.getElementById('formSelect').value,
+      message:       document.getElementById('message').value.trim() || 'No message provided'
+    };
+
+    try {
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      document.getElementById('enrollForm').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('show');
+      showToast("Inquiry submitted! We'll be in touch soon. ✉️");
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      showToast('Something went wrong. Please call us directly.', 'error');
+    } finally {
+      btn.classList.remove('loading'); btn.disabled = false;
+    }
+  }
+
+  function resetForm() {
+    ['guardianName','phone','studentName','message'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('formSelect').value = '';
+    document.querySelectorAll('.field-error').forEach(e => e.classList.remove('show'));
+    document.querySelectorAll('input, select, textarea').forEach(el => el.classList.remove('valid','invalid'));
+    document.getElementById('msgCount').textContent = '0';
+    document.getElementById('enrollForm').style.display = '';
+    document.getElementById('formSuccess').classList.remove('show');
+  }
+
+  document.getElementById('phone').addEventListener('input', function() {
+    this.value = this.value.replace(/[^\d+\s\-().]/g, '');
+  });
+</script>
+</body>
+</html>
