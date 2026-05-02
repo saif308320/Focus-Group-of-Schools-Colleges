@@ -45,11 +45,20 @@
 
   img { max-width: 100%; display: block; }
 
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: var(--navy); }
-  ::-webkit-scrollbar-thumb { background: var(--red); border-radius: 3px; }
+  /* ── PREMIUM SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #06091a; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--gold) 0%, var(--red) 50%, var(--gold) 100%);
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(240,192,64,0.4);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ffe066 0%, var(--red-light) 50%, #ffe066 100%);
+  }
   ::selection { background: var(--red); color: white; }
 
+  /* ── NAV — fixed: removed black border on scroll ── */
   nav {
     position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
     background: rgba(10,31,92,0.97);
@@ -57,6 +66,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 var(--page-x);
     height: 72px;
+    /* KEY FIX: only bottom border, no box-shadow that creates black line */
     border-bottom: 2px solid var(--red);
     transition: var(--tx);
     gap: 12px;
@@ -64,7 +74,9 @@
   nav.scrolled {
     height: 62px;
     background: rgba(8,18,58,0.99);
-    box-shadow: 0 4px 28px rgba(0,0,0,0.4);
+    /* FIX: use red-tinted shadow instead of dark black shadow */
+    box-shadow: 0 4px 28px rgba(200,16,46,0.25), 0 1px 0 rgba(200,16,46,0.3);
+    border-bottom: 2px solid rgba(200,16,46,0.7);
   }
 
   .nav-logo {
@@ -169,32 +181,66 @@
     box-shadow: 0 10px 28px rgba(200,16,46,0.6) !important;
   }
 
+  /* ── HERO — with background image ── */
   .hero {
     min-height: 100vh;
-    background: linear-gradient(150deg, #050e30 0%, #091c55 50%, #0c2260 80%, #08133d 100%);
+    position: relative; overflow: hidden;
     display: flex; align-items: center;
     padding: 100px var(--page-x) 80px;
-    position: relative; overflow: hidden;
+  }
+
+  /* Real background image layer */
+  .hero-bg-img {
+    position: absolute; inset: 0; z-index: 0;
+    background-image: url('./hero-bg.jpeg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    transform: scale(1.05);
+    animation: heroBgZoom 18s ease-in-out infinite alternate;
+  }
+  @keyframes heroBgZoom {
+    from { transform: scale(1.05); }
+    to   { transform: scale(1.12); }
+  }
+
+  /* Deep premium overlay — navy + red tones */
+  .hero-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(135deg,
+        rgba(5,12,42,0.92) 0%,
+        rgba(10,28,80,0.85) 40%,
+        rgba(8,16,50,0.80) 60%,
+        rgba(150,10,28,0.25) 100%
+      );
+  }
+
+  /* Subtle vignette edges */
+  .hero-vignette {
+    position: absolute; inset: 0; z-index: 2;
+    background:
+      radial-gradient(ellipse at center, transparent 40%, rgba(3,7,25,0.65) 100%);
   }
 
   .hero-grid-bg {
-    position: absolute; inset: 0; opacity: 0.025;
+    position: absolute; inset: 0; z-index: 3; opacity: 0.03;
     background-image:
-      linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,0.9) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.9) 1px, transparent 1px);
     background-size: 56px 56px;
     animation: gridDrift 22s linear infinite;
   }
   @keyframes gridDrift { to { background-position: 56px 56px; } }
 
   .hero-orb { position: absolute; border-radius: 50%; filter: blur(90px); pointer-events: none; }
-  .hero-orb-1 { width: 55vw; max-width: 700px; height: 55vw; max-height: 700px; top: -15%; right: -10%; background: rgba(200,16,46,0.13); animation: oFloat1 9s ease-in-out infinite; }
-  .hero-orb-2 { width: 35vw; max-width: 450px; height: 35vw; max-height: 450px; bottom: -10%; left: -5%; background: rgba(240,192,64,0.06); animation: oFloat2 11s ease-in-out infinite; }
+  .hero-orb-1 { z-index: 3; width: 55vw; max-width: 700px; height: 55vw; max-height: 700px; top: -15%; right: -10%; background: rgba(200,16,46,0.1); animation: oFloat1 9s ease-in-out infinite; }
+  .hero-orb-2 { z-index: 3; width: 35vw; max-width: 450px; height: 35vw; max-height: 450px; bottom: -10%; left: -5%; background: rgba(240,192,64,0.05); animation: oFloat2 11s ease-in-out infinite; }
   @keyframes oFloat1 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(-25px,18px);} }
   @keyframes oFloat2 { 0%,100%{transform:translate(0,0);} 50%{transform:translate(18px,-22px);} }
 
   .hero-inner {
-    position: relative; z-index: 2;
+    position: relative; z-index: 10;
     display: grid; grid-template-columns: 1fr auto;
     gap: 60px; align-items: center;
     width: 100%; max-width: 1300px; margin: 0 auto;
@@ -211,6 +257,7 @@
     font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase;
     padding: 7px 16px; border-radius: 30px; margin-bottom: 26px;
     animation: fadeUp 1s 0.12s both;
+    backdrop-filter: blur(8px);
   }
   .badge-dot { width: 7px; height: 7px; background: var(--red); border-radius: 50%; animation: blink 1.8s ease-in-out infinite; flex-shrink: 0; }
   @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
@@ -222,6 +269,7 @@
     margin-bottom: 14px;
     animation: fadeUp 1s 0.22s both;
     letter-spacing: -0.5px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
   }
   .hero h1 .gold { color: var(--gold); display: block; font-style: italic; }
 
@@ -233,9 +281,10 @@
   .hero-motto span { color: #9ab0d8; }
 
   .hero-desc {
-    font-size: 0.98rem; color: #8aadce; line-height: 1.9;
+    font-size: 0.98rem; color: #a8c4de; line-height: 1.9;
     margin-bottom: 40px; max-width: 510px;
     animation: fadeUp 1s 0.42s both;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
   }
 
   .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 1s 0.52s both; }
@@ -253,29 +302,31 @@
   .btn-primary:hover svg { transform: translateX(4px); }
 
   .btn-outline {
-    background: transparent; color: white;
+    background: rgba(255,255,255,0.08); color: white;
     padding: 14px 32px; border-radius: 5px;
     font-family: var(--font-caps); font-weight: 600; font-size: 0.88rem;
     letter-spacing: 1.2px; text-transform: uppercase; text-decoration: none;
-    transition: var(--tx); border: 2px solid rgba(255,255,255,0.25);
+    transition: var(--tx); border: 2px solid rgba(255,255,255,0.3);
     display: inline-flex; align-items: center; gap: 8px;
+    backdrop-filter: blur(8px);
   }
-  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.08); transform: translateY(-3px); }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(240,192,64,0.08); transform: translateY(-3px); }
 
   .hero-stats {
-    display: flex; flex-direction: column; gap: 16px; z-index: 2;
+    display: flex; flex-direction: column; gap: 16px; z-index: 10;
     animation: fadeUp 1s 0.65s both;
     flex-shrink: 0;
   }
   .stat-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(16px);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(20px);
     border-radius: 14px; padding: 22px 30px;
     text-align: center; transition: var(--tx);
     min-width: 150px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1);
   }
-  .stat-card:hover { background: rgba(255,255,255,0.09); transform: scale(1.04); }
+  .stat-card:hover { background: rgba(255,255,255,0.11); transform: scale(1.04); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
   .stat-card strong {
     display: block; font-family: var(--font-display);
     font-size: 2.4rem; color: var(--gold);
@@ -683,28 +734,52 @@
   .footer-bottom span { color: #ffffff; }
   .footer-heart { color: var(--red); }
 
+  /* ── PREMIUM BACK-TO-TOP ARROW ── */
   .back-to-top {
     position: fixed; bottom: 26px; right: 26px; z-index: 999;
-    width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+    width: 54px; height: 54px; border-radius: 50%; border: none; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    color: #fff; font-size: 1.4rem;
-    background: linear-gradient(135deg, var(--red), var(--red-dark));
-    box-shadow: 0 0 0 rgba(200,16,46,0.6), 0 8px 30px rgba(200,16,46,0.55);
-    backdrop-filter: blur(6px); transition: all 0.35s ease;
+    color: #fff;
+    background: linear-gradient(135deg, var(--gold-dim), var(--gold), #ffe57a, var(--gold-dim));
+    background-size: 200% 200%;
+    box-shadow:
+      0 0 0 2px rgba(240,192,64,0.25),
+      0 8px 30px rgba(240,192,64,0.4),
+      0 2px 8px rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+    transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
     opacity: 0; transform: translateY(20px) scale(0.8); pointer-events: none;
+    animation: goldShift 3s ease infinite;
+  }
+  @keyframes goldShift {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
   .back-to-top.show {
     opacity: 1; transform: translateY(0) scale(1); pointer-events: all;
-    animation: pulseGlow 2.5s infinite;
+    animation: goldShift 3s ease infinite, ringPulse 2.8s ease-out infinite;
   }
-  .back-to-top:hover { transform: translateY(-6px) scale(1.12); box-shadow: 0 0 18px rgba(255,40,80,0.9), 0 12px 40px rgba(200,16,46,0.7); }
-  .back-to-top span { display: inline-block; transition: transform 0.3s ease; }
-  .back-to-top:hover span { transform: translateY(-3px); }
-  @keyframes pulseGlow {
-    0%   { box-shadow: 0 0 0 0 rgba(200,16,46,0.5), 0 8px 30px rgba(200,16,46,0.55); }
-    70%  { box-shadow: 0 0 0 12px rgba(200,16,46,0), 0 8px 30px rgba(200,16,46,0.55); }
-    100% { box-shadow: 0 0 0 0 rgba(200,16,46,0); }
+  @keyframes ringPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(240,192,64,0.55), 0 8px 30px rgba(240,192,64,0.4), 0 2px 8px rgba(0,0,0,0.5); }
+    70%  { box-shadow: 0 0 0 14px rgba(240,192,64,0), 0 8px 30px rgba(240,192,64,0.4), 0 2px 8px rgba(0,0,0,0.5); }
+    100% { box-shadow: 0 0 0 0 rgba(240,192,64,0), 0 8px 30px rgba(240,192,64,0.4), 0 2px 8px rgba(0,0,0,0.5); }
   }
+  .back-to-top:hover {
+    transform: translateY(-6px) scale(1.14);
+    box-shadow:
+      0 0 0 3px rgba(240,192,64,0.4),
+      0 16px 44px rgba(240,192,64,0.6),
+      0 4px 12px rgba(0,0,0,0.5);
+  }
+
+  /* Arrow SVG inside button */
+  .back-to-top .arrow-icon {
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  .back-to-top:hover .arrow-icon { transform: translateY(-3px); }
+  .back-to-top svg path { stroke: var(--navy); }
 
   .toast {
     position: fixed; bottom: 26px; left: 50%;
@@ -764,7 +839,7 @@
     .footer-links ul { align-items: center; }
     .footer-links a { justify-content: center; }
     .footer-bottom { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
-    .back-to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; font-size: 1.2rem; }
+    .back-to-top { bottom: 20px; right: 20px; width: 48px; height: 48px; }
   }
   @media (max-width: 600px) {
     section { padding: 56px var(--page-x); }
@@ -792,7 +867,14 @@
 </head>
 <body>
 
-<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top"><span>↑</span></button>
+<!-- PREMIUM BACK TO TOP — gold arrow SVG -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <span class="arrow-icon">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 19V5M5 12l7-7 7 7" stroke="#0A1F5C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </span>
+</button>
 <div class="toast" id="toast"></div>
 
 <nav id="mainNav">
@@ -825,7 +907,11 @@
   <a href="#contact" class="mob-cta" onclick="closeMenu()">Enroll Now &rarr;</a>
 </div>
 
+<!-- HERO with background image layers -->
 <section class="hero" id="home">
+  <div class="hero-bg-img" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="hero-vignette" aria-hidden="true"></div>
   <div class="hero-grid-bg" aria-hidden="true"></div>
   <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
   <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
@@ -1139,13 +1225,10 @@
 </footer>
 
 <script>
-  /* ── EMAILJS INIT ── */
   emailjs.init("DjSilJ7eandRiPWv3");
-
   const EMAILJS_SERVICE_ID  = "service_qw8yy2g";
   const EMAILJS_TEMPLATE_ID = "template_txwe435";
 
-  /* ── SCROLL & NAV ── */
   const nav     = document.getElementById('mainNav');
   const backBtn = document.getElementById('backToTop');
   const sections   = document.querySelectorAll('section[id]');
@@ -1162,7 +1245,6 @@
     });
   }, { passive: true });
 
-  /* ── MOBILE NAV ── */
   const mobileNav = document.getElementById('mobileNav');
   const hamburger = document.getElementById('hamburger');
 
@@ -1183,7 +1265,6 @@
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMenu(); });
 
-  /* ── SCROLL REVEAL ── */
   const ro = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); }
@@ -1191,7 +1272,6 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-  /* ── TOAST ── */
   function showToast(msg, type = 'success') {
     const t = document.getElementById('toast');
     t.className = 'toast' + (type === 'error' ? ' error' : '');
@@ -1200,12 +1280,10 @@
     setTimeout(() => t.classList.remove('show'), 3500);
   }
 
-  /* ── CHAR COUNTER ── */
   function updateCounter(el) {
     document.getElementById('msgCount').textContent = el.value.length;
   }
 
-  /* ── VALIDATION ── */
   const validators = {
     guardianName: v => {
       if (!v.trim()) return 'Please enter the guardian\'s full name.';
@@ -1255,7 +1333,6 @@
     return allValid;
   }
 
-  /* ── FORM SUBMIT via EmailJS ── */
   async function handleSubmit() {
     if (!validateAll()) {
       showToast('Please fix the errors above before submitting.', 'error');
